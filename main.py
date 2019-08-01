@@ -1,10 +1,11 @@
 import json
 from Controllers import Gpio as GPIO
 from Controllers import MotorController as Motor
-from Controllers import USController as Sonar
+
+from Controllers import  Robot as Robot
 
 Motor.GPIO = GPIO
-Sonar.GPIO = GPIO
+Robot.GPIO = GPIO
 
 run = False
 
@@ -13,6 +14,7 @@ def setup():
     with open("config.json" , "r") as f:
         config = json.load(f)
     Motor.setup(config['motor'])
+    Robot.setup()
     pass
 
 
@@ -22,6 +24,7 @@ def destroy(arg=None):
     run = False
     print("Stopping the robot " + str(arg))
     Motor.destroy()
+    GPIO.cleanup()
     print("Robot stopped")
 
 
@@ -45,7 +48,9 @@ def switcher(choice_args):
         "d" : Motor.turn_right,
         "x" : Motor.reverse,
         "exit" : destroy,
-        "?" : Motor.get_state
+        "?" : Motor.get_state,
+        "start" : Robot.start,
+        "stop" : Robot.stop
     }
     func = sw.get(choice, invalid_choice)
     res = func(arg)

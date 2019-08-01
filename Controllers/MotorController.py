@@ -10,7 +10,10 @@ m2_pin2 = None
 
 
 def destroy():
-    GPIO.cleanup()
+    GPIO.output(m1_pin1, GPIO.LOW)
+    GPIO.output(m1_pin2, GPIO.LOW)
+    GPIO.output(m2_pin1, GPIO.LOW)
+    GPIO.output(m2_pin2, GPIO.LOW)
 
 
 def setup(config):
@@ -56,6 +59,7 @@ def get_state(arg = None):
         return "NA"
 
 
+# Get the movement of car, is it moving forward, backward or stopped. Left/Right doesnt affect
 def get_movement():
     if _lstate == 1 or _rstate == 1:
         return 1
@@ -65,6 +69,7 @@ def get_movement():
         return 0
 
 
+# Move/Stop the car, 1 fwd, -1 backward, 0 stop
 def set_state(dir):
     if dir == 1:
         forward()
@@ -74,6 +79,7 @@ def set_state(dir):
         reverse()
 
 
+# Act left wheel
 def _lwheel_act_(dir):
     global _lstate
     _lstate= dir
@@ -88,6 +94,7 @@ def _lwheel_act_(dir):
         GPIO.output(m1_pin2, GPIO.HIGH)
 
 
+# Act right wheel
 def _rwheel_act_(dir):
     global _rstate
     _rstate= dir
@@ -102,6 +109,7 @@ def _rwheel_act_(dir):
         GPIO.output(m2_pin2, GPIO.HIGH)
 
 
+# Move forward with specific time specified, else forever
 def forward(arg=None):
     _lwheel_act_(1)
     _rwheel_act_(1)
@@ -111,6 +119,7 @@ def forward(arg=None):
         stop()
 
 
+# Move reverse with specific time specified, else forever
 def reverse(arg=None):
     _lwheel_act_(-1)
     _rwheel_act_(-1)
@@ -120,9 +129,11 @@ def reverse(arg=None):
         stop()
 
 
+# Turn left with specific time specified, else 3 time units. Then continue last state
 def turn_left(arg=None):
     m = get_movement()
-    _rwheel_act_(1)
+    # If car is stopped or was moving fwd, then turn in forward direction else reverse
+    _rwheel_act_(1 if m >= 0 else -1)
     _lwheel_act_(0)
     print(get_state())
     if arg is not None:
@@ -133,10 +144,12 @@ def turn_left(arg=None):
     print(get_state())
 
 
+# Turn right with specific time specified, else 3 time units. Then continue last state
 def turn_right(arg=None):
     m = get_movement()
     _rwheel_act_(0)
-    _lwheel_act_(1)
+    # If car is stopped or was moving fwd, then turn in forward direction else reverse
+    _lwheel_act_(1 if m >= 0 else -1)
     print(get_state())
     if arg is not None:
         sleep2((int(arg)))
@@ -146,14 +159,29 @@ def turn_right(arg=None):
     print(get_state())
 
 
+# Turn left with specific time specified, else 3 time units. Then Stop
 def reverse_left(arg=None):
     _lwheel_act_(0)
     _rwheel_act_(-1)
+    print(get_state())
+    if arg is not None:
+        sleep2((int(arg)))
+    else:
+        sleep2(3)
+    set_state(0)
+    print(get_state())
 
-
+# Turn right with specific time specified, else 3 time units. Then Stop
 def reverse_right(arg=None):
     _rwheel_act_(0)
     _lwheel_act_(-1)
+    print(get_state())
+    if arg is not None:
+        sleep2((int(arg)))
+    else:
+        sleep2(3)
+    set_state(0)
+    print(get_state())
 
 
 def stop(arg=None):
