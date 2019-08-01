@@ -1,5 +1,5 @@
 import json
-import MotorController as Motor
+from Controllers import MotorController as Motor
 
 run = False
 
