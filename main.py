@@ -1,5 +1,10 @@
 import json
+from Controllers import Gpio as GPIO
 from Controllers import MotorController as Motor
+from Controllers import USController as Sonar
+
+Motor.GPIO = GPIO
+Sonar.GPIO = GPIO
 
 run = False
 

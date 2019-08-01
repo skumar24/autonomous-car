@@ -1,5 +1,5 @@
-# import RPi.GPIO as GPIO
 import time
+GPIO = None
 _lstate = 0
 _rstate = 0
 
@@ -15,22 +15,21 @@ def destroy():
 
 def setup(config):
     global  m1_pin1, m1_pin2, m2_pin1, m2_pin2
-
-    # GPIO.setmode(GPIO.BOARD)
+    GPIO.setmode()
     m1_pin1 = config["m1_gpio1"]
     m1_pin2 = config["m1_gpio2"]
     m2_pin1 = config["m2_gpio1"]
     m2_pin2 = config["m2_gpio2"]
 
-    # GPIO.setup(m1_pin1, GPIO.OUT)
-    # GPIO.setup(m1_pin2, GPIO.OUT)
-    # GPIO.setup(m2_pin1, GPIO.OUT)
-    # GPIO.setup(m2_pin2, GPIO.OUT)
-    #
-    # GPIO.output(m1_pin1, GPIO.LOW)
-    # GPIO.output(m1_pin2, GPIO.LOW)
-    # GPIO.output(m2_pin1, GPIO.LOW)
-    # GPIO.output(m2_pin2, GPIO.LOW)
+    GPIO.setup(m1_pin1, GPIO.OUT)
+    GPIO.setup(m1_pin2, GPIO.OUT)
+    GPIO.setup(m2_pin1, GPIO.OUT)
+    GPIO.setup(m2_pin2, GPIO.OUT)
+
+    GPIO.output(m1_pin1, GPIO.LOW)
+    GPIO.output(m1_pin2, GPIO.LOW)
+    GPIO.output(m2_pin1, GPIO.LOW)
+    GPIO.output(m2_pin2, GPIO.LOW)
     _lstate = 0
     _rstate = 0
     print('''Setting up the motor
@@ -78,29 +77,29 @@ def set_state(dir):
 def _lwheel_act_(dir):
     global _lstate
     _lstate= dir
-    # if dir == 0:
-    #     GPIO.output(m1_pin1, GPIO.LOW)
-    #     GPIO.output(m1_pin2, GPIO.LOW)
-    # elif dir == 1:
-    #     GPIO.output(m1_pin1, GPIO.HIGH)
-    #     GPIO.output(m1_pin2, GPIO.LOW)
-    # elif dir == -1:
-    #     GPIO.output(m1_pin1, GPIO.LOW)
-    #     GPIO.output(m1_pin2, GPIO.HIGH)
+    if dir == 0:
+        GPIO.output(m1_pin1, GPIO.LOW)
+        GPIO.output(m1_pin2, GPIO.LOW)
+    elif dir == 1:
+        GPIO.output(m1_pin1, GPIO.HIGH)
+        GPIO.output(m1_pin2, GPIO.LOW)
+    elif dir == -1:
+        GPIO.output(m1_pin1, GPIO.LOW)
+        GPIO.output(m1_pin2, GPIO.HIGH)
 
 
 def _rwheel_act_(dir):
     global _rstate
     _rstate= dir
-    # if dir == 0:
-    #     GPIO.output(m2_pin1, GPIO.LOW)
-    #     GPIO.output(m2_pin2, GPIO.LOW)
-    # elif dir == 1:
-    #     GPIO.output(m2_pin1, GPIO.HIGH)
-    #     GPIO.output(m2_pin2, GPIO.LOW)
-    # elif dir == -1:
-    #     GPIO.output(m2_pin1, GPIO.LOW)
-    #     GPIO.output(m2_pin2, GPIO.HIGH)
+    if dir == 0:
+        GPIO.output(m2_pin1, GPIO.LOW)
+        GPIO.output(m2_pin2, GPIO.LOW)
+    elif dir == 1:
+        GPIO.output(m2_pin1, GPIO.HIGH)
+        GPIO.output(m2_pin2, GPIO.LOW)
+    elif dir == -1:
+        GPIO.output(m2_pin1, GPIO.LOW)
+        GPIO.output(m2_pin2, GPIO.HIGH)
 
 
 def forward(arg=None):
