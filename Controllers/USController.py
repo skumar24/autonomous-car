@@ -22,7 +22,7 @@ def destroy():
 
 def setup(config):
     global trigPin, echoPin, p, servoPin
-    print('Settiung up ultrasonic sensor...')
+    print('Setting up ultrasonic sensor...')
     GPIO.setmode()  # numbers GPIOs by physical location
     trigPin = config["us_trig"]
     echoPin = config["us_echo"]
