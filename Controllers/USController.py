@@ -176,6 +176,8 @@ def get_path_priority(curr_movement):
 
     d = get_distance_infront()
     print("Distance in front: " + str(d))
+    if d < 10:
+        path_priority = "reverse"
     if d < 20 and (current_priority == "forward" or current_priority is None):
         path_priority = "reverse"
 
