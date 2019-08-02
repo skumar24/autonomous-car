@@ -71,7 +71,10 @@ def get_distance():
     GPIO.output(trigPin, GPIO.LOW)
     pingTime = pulseIn(echoPin, GPIO.HIGH, timeOut)  # read plus time of echoPin
     distance = pingTime * 340.0 / 2.0 / 10000.0  # the sound speed is 340m/s, and calculate distance
-    return distance
+    if distance == 0:
+        return get_distance()
+    else:
+        return distance
 
 
 def look(angle):
