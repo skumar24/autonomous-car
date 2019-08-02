@@ -23,6 +23,7 @@ def start(arg=None):
     while is_running:
         # Decide
         dir = Sonar.get_path_priority(Motor.get_movement())
+        print("Moving in direction " + dir)
         if dir == "forward" and Motor.get_state() != "Forward":
             Motor.forward()
         elif dir == "turnleft" and Motor.get_state() != "Turning Left":
