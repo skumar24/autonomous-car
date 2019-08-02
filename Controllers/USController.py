@@ -82,13 +82,11 @@ def get_distance_infront(): # special function to find out distance in front aft
     dists = []
     time.sleep(0.1)
     for i in range(50, 111, 1):
-        print("Looking " + str(i))
         look(i)
         if i == 50 or i == 110 or i == 80:
             dists.append(get_distance())
     time.sleep(0.3)
     for i in range(110,49, -1):
-        print("Looking " + str(i))
         look(i)
         if i == 50 or i == 110 or i == 80:
             dists.append(get_distance())
