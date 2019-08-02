@@ -146,12 +146,12 @@ def get_path_priority(curr_movement):
     d = get_distance()
     print("Distance in front: " + str(d))
     if d < 15 and (current_priority == "forward" or current_priority is None):
-        return "reverse"
+        path_priority = "reverse"
 
-    if current_priority is None: # Move forward if it begins and there is space
-        return "forward"
+    if path_priority is None and current_priority is None: # Move forward if it begins and there is space
+        path_priority = "forward"
 
-    if curr_movement >= 0:
+    if path_priority is None and curr_movement >= 0:
         if current_priority == "forward":
             # Just look forward
             if d < 40: # If distance in fwd is < 40, start looking for options
@@ -175,7 +175,7 @@ def get_path_priority(curr_movement):
                 path_data.append((i, get_distance()));
             # look_forward()
             path_priority = get_dir_by_pathdata(path_data)
-    else:
+    elif path_priority is None:
         if is_turning:
             check_all = False
             if d < 40:
