@@ -139,6 +139,7 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
 
 def get_path_priority(curr_movement):
     global current_priority
+    path_priority = None
     check_all = True
     path_data = []
     is_turning = current_priority == "turnleft" or current_priority == "turnright"
