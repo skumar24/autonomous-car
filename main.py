@@ -27,6 +27,7 @@ def destroy(arg=None):
     run = False
     print("Stopping the robot " + str(arg))
     Motor.destroy()
+    Robot.destroy()
     GPIO.cleanup()
     print("Robot stopped")
 
