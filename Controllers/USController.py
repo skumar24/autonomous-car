@@ -85,9 +85,20 @@ def look_right():
     pass
 
 def look_forward():
-    look(90)
+    look(80)
     pass
 
+
+def track1():
+    for i in range(0, 181, 1):
+        look(i)
+        time.sleep(0.001)
+
+
+def track2():
+    for i in range(180, -1, -1):
+        look(i)
+        time.sleep(0.001)
 
 def get_dir_by_pathdata(pathdata, onlyturn = False):
     if onlyturn:

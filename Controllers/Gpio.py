@@ -1,10 +1,10 @@
 import random
 GPIO = None
+
 try:
     import RPi.GPIO as GPIO
 except ImportError:
     pass
-
 
 OUT = None
 HIGH = None

@@ -4,10 +4,10 @@ from Controllers import MotorController as Motor
 from Controllers import USController as Sonar
 
 from Controllers import  Robot as Robot
-
+GPIO.setmode()
 Motor.GPIO = GPIO
 Robot.GPIO = GPIO
-
+Sonar.GPIO = GPIO
 run = False
 
 
@@ -15,7 +15,7 @@ def setup():
     with open("config.json" , "r") as f:
         config = json.load(f)
     Motor.setup(config['motor'])
-    Robot.setup(config)
+    #Robot.setup(config)
     Sonar.setup(config['sonar'])
     pass
 

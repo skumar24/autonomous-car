@@ -18,6 +18,9 @@ def setup():
     pass
 
 
+def test(arg=None):
+    Robot.test()
+
 # Exits the process
 def destroy(arg=None):
     global run
@@ -50,7 +53,8 @@ def switcher(choice_args):
         "exit" : destroy,
         "?" : Motor.get_state,
         "start" : Robot.start,
-        "stop" : Robot.stop
+        "stop" : Robot.stop,
+        "t" : test
     }
     func = sw.get(choice, invalid_choice)
     res = func(arg)

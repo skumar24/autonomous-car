@@ -1,6 +1,6 @@
 from Controllers import MotorController as Motor
 from Controllers import USController as Sonar
-
+import time
 
 GPIO = None
 is_running = False
@@ -37,3 +37,9 @@ def stop(arg=None):
     global is_running
     is_running = False
     Motor.stop()
+    
+def test():
+    Sonar.track1()
+    time.sleep(1)
+    Sonar.track2()
+    print("Looked")
