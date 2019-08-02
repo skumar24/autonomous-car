@@ -103,7 +103,7 @@ def look_left():
     global servo_angle
     if servo_angle == 180:
         return
-    for i in range(servo_angle, 181, 1):
+    for i in range(0, 181, 1):
         look(i)
     servo_angle = 180
 
@@ -112,7 +112,7 @@ def look_right():
     global servo_angle
     if servo_angle == 0:
         return
-    for i in range(servo_angle, -1, -1):
+    for i in range(180, -1, -1):
         look(i)
     servo_angle = 0
 
