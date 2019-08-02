@@ -81,16 +81,16 @@ def get_distance_infront(): # special function to find out distance in front aft
     look_forward()
     dists = []
     time.sleep(0.1)
-    for i in range(60, 101, 1):
+    for i in range(50, 111, 1):
         print("Looking " + str(i))
         look(i)
-        if i == 60 or i == 100 or i == 80:
+        if i == 50 or i == 110 or i == 80:
             dists.append(get_distance())
     time.sleep(0.3)
-    for i in range(100, 59, -1):
+    for i in range(110,49, -1):
         print("Looking " + str(i))
         look(i)
-        if i == 60 or i == 100 or i == 80:
+        if i == 50 or i == 110 or i == 80:
             dists.append(get_distance())
     return min(dists)
 
@@ -124,10 +124,10 @@ def look_forward():
     if servo_angle == 80:
         return
     if servo_angle == 180:
-        for i in range(180, 101, -1):
+        for i in range(180, 111, -1):
             look(i)
     else:
-        for i in range(0, 60, 1):
+        for i in range(0, 49, 1):
             look(i)
     servo_angle = 80
 
