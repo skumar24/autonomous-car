@@ -211,7 +211,7 @@ def get_path_priority(curr_movement):
     elif path_priority is None:
         if is_turning:
             check_all = False
-            if d < 40:
+            if d < 30:
                 path_priority = current_priority
             else:
                 time.sleep(3)
