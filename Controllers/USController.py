@@ -153,7 +153,7 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
         elif max_dir[0] <= 80:
             if min_dist <=20:
                 return "turnright_quick"
-            else
+            else:
                 return "turnright"
         elif max_dir[0] >= 140:
             if min_dist <= 20:
