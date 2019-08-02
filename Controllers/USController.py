@@ -12,7 +12,7 @@ trigPin = None
 echoPin = None
 servoPin = None
 
-servo_angle = None
+servo_angle = 0
 
 def destroy():
     global trigPin
