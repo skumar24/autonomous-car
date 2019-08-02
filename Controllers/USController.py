@@ -80,36 +80,20 @@ def get_distance():
 def get_distance_infront(): # special function to find out distance in front after looking on front sides as well
     look_forward()
     dists = []
-    if curr_angle is not None:
-        if curr_angle < 80:
-            for i in range(60, 101, 1):
-                print("Looking " + str(i))
-                look(i)
-                if i == 60 or i == 100 or i == 80:
-                    dists.append(get_distance())
-        else:
-            for i in range(100, 59, -1):
-                print("Looking " + str(i))
-                look(i)
-                if i == 60 or i == 100 or i == 80:
-                    dists.append(get_distance())
-    else:
-        for i in range(60, 101, 1):
-            print("Looking " + str(i))
-            look(i)
-            if i == 60 or i == 100 or i == 80:
-                dists.append(get_distance())
-        for i in range(100, 59, -1):
-            print("Looking " + str(i))
-            look(i)
-            if i == 60 or i == 100 or i == 80:
-                dists.append(get_distance())
+    for i in range(60, 101, 1):
+        print("Looking " + str(i))
+        look(i)
+        if i == 60 or i == 100 or i == 80:
+            dists.append(get_distance())
+    for i in range(100, 59, -1):
+        print("Looking " + str(i))
+        look(i)
+        if i == 60 or i == 100 or i == 80:
+            dists.append(get_distance())
     return min(dists)
 
 
 def look(angle):
-    global curr_angle
-    curr_angle = angle
     servoWrite(angle)
     time.sleep(0.001)
     pass
