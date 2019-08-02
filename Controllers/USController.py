@@ -117,7 +117,7 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
     max_dir = max(pathdata, key=lambda x: x[1])
     max_dist = max_dir[1]
     if not onlyturn:
-        if max_dist <= 10:
+        if max_dist <= 15:
             return "reverse"
         elif max_dir <= 80:
             return "turnright"
@@ -126,7 +126,7 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
         else:
             return "forward"
     else: # Only in case of reverse, look for left and right to find space to turn
-        if max_dist <=8:
+        if max_dist <= 15:
             return "reverse"
         elif max_dir <= 80:
             return "turnleft"
@@ -140,28 +140,31 @@ def get_path_priority(curr_movement):
     path_data = []
     is_turning = current_priority == "turnleft" or current_priority == "turnright"
     look_forward()
-    time.sleep(0.2)
     d = get_distance()
+    if d < 15:
+        return "reverse"
+
     if curr_movement >= 0:
         if current_priority == "forward":
             # Just look forward
-            if d < 25:
+            if d < 40: # If distance in fwd is < 40, start looking for options
                 check_all = True
             else:
                 path_priority = current_priority
                 check_all = False
         elif is_turning:
             check_all = False
-            if d < 25:
+            if d < 40:
                 path_priority = current_priority
             else:
+                time.sleep(2)
                 path_priority = "forward"
 
         if check_all:
             look_right()
             for i in range(0, 181, 1):
                 look(i)
-                time.sleep(0.01)
+                # time.sleep(0.01)
                 path_data.append((i, get_distance()));
             # look_forward()
             print(path_data)
@@ -169,7 +172,7 @@ def get_path_priority(curr_movement):
     else:
         if is_turning:
             check_all = False
-            if d < 25:
+            if d < 40:
                 path_priority = current_priority
             else:
                 path_priority = "forward"
@@ -177,7 +180,7 @@ def get_path_priority(curr_movement):
             look_right()
             for i in range(0, 181, 1):
                 look(i)
-                time.sleep(0.01)
+                # time.sleep(0.01)
                 path_data.append((i, get_distance()));
             # look_forward()
             print(path_data)
