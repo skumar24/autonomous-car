@@ -14,7 +14,7 @@ def setup():
     with open("config.json" , "r") as f:
         config = json.load(f)
     Motor.setup(config['motor'])
-    Robot.setup()
+    Robot.setup(config)
     pass
 
 

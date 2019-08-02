@@ -1,3 +1,4 @@
+import random
 GPIO = None
 try:
     import RPi.GPIO as GPIO
@@ -8,19 +9,22 @@ except ImportError:
 OUT = None
 HIGH = None
 LOW = None
+IN = None
+
 
 def _init_():
-    global OUT
-    global HIGH
-    global LOW
+    global OUT,HIGH,LOW,IN
+
     if GPIO is not None:
         OUT = GPIO.OUT
         HIGH = GPIO.HIGH
         LOW = GPIO.LOW
+        IN = GPIO.IN
     else:
         OUT = "OUT"
         HIGH = "HIGH"
         LOW = "LOW"
+        IN = "IN"
 
 
 def setmode():
@@ -41,7 +45,21 @@ def output(pin, o):
     if GPIO is not None:
         GPIO.output(pin, o)
     else:
-        print("GPIO output " + str(pin) + ":" +  o)
+        print("GPIO output " + str(pin) + ":" + o)
+
+
+def inp(pin):
+    if GPIO is not None:
+        return GPIO.input(pin)
+    else:
+        return "LOW" if random.uniform(0, 1) == 0 else "HIGH"
+
+def PWM(pin, freq):
+    if GPIO is not None:
+        return GPIO.PWM(pin, freq)
+    else:
+        print("GPIO PWM")
+        return None
 
 
 def cleanup():

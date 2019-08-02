@@ -4,5 +4,10 @@
         "m1_gpio2" : 2,
         "m2_gpio1" : 3,
         "m2_gpio2" : 4
+    },
+    "sonar" : {
+        "us_trig" : 5,
+        "us_echo" : 6,
+        "servo_pin": 7
     }
 }

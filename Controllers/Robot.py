@@ -6,9 +6,10 @@ GPIO = None
 is_running = False
 
 
-def setup():
+def setup(config):
     Motor.GPIO = GPIO
     Sonar.GPIO = GPIO
+    Sonar.setup(config['sonar'])
 
 
 def destroy():
@@ -21,10 +22,7 @@ def start(arg=None):
     is_running = True
     while is_running:
         # Decide
-        if Motor.get_movement() == -1:
-            pass
-        else:
-            dir = Sonar.get_path_priority(Motor.get_movement())
+        dir = Sonar.get_path_priority(Motor.get_movement())
         if dir == "forward" and Motor.get_state() != "Forward":
             Motor.forward()
         elif dir == "turnleft" and Motor.get_state() != "Turning Left":
@@ -34,6 +32,8 @@ def start(arg=None):
         elif dir == "reverse" and Motor.get_state() != "Reverse":
             Motor.reverse()
 
+
 def stop(arg=None):
     global is_running
     is_running = False
+    Motor.stop()
