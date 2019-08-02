@@ -12,6 +12,8 @@ trigPin = None
 echoPin = None
 servoPin = None
 
+servo_angle = None
+
 def destroy():
     global trigPin
     GPIO.output(trigPin, GPIO.LOW)
@@ -76,29 +78,41 @@ def look(angle):
     servoWrite(angle)
     pass
 
+
 def look_left():
-    look(180)
-    pass
+    global servo_angle
+    if servo_angle == 180:
+        return
+    for i in range(servo_angle, 181, 1):
+        look(i)
+        time.sleep(0.001)
+    servo_angle = 180
+
 
 def look_right():
-    look(0)
-    pass
+    global servo_angle
+    if servo_angle == 0:
+        return
+    for i in range(servo_angle, -1, -1):
+        look(i)
+        time.sleep(0.001)
+    servo_angle = 0
+
 
 def look_forward():
-    look(80)
-    pass
+    global servo_angle
+    if servo_angle == 80:
+        return
+    if servo_angle == 180:
+        for i in range(180, 79, -1):
+            look(i)
+            time.sleep(0.001)
+    else:
+        for i in range(0, 81, 1):
+            look(i)
+            time.sleep(0.001)
+    servo_angle = 80
 
-
-def track1():
-    for i in range(0, 181, 1):
-        look(i)
-        time.sleep(0.001)
-
-
-def track2():
-    for i in range(180, -1, -1):
-        look(i)
-        time.sleep(0.001)
 
 def get_dir_by_pathdata(pathdata, onlyturn = False):
     if onlyturn:

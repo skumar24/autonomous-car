@@ -38,8 +38,11 @@ def stop(arg=None):
     is_running = False
     Motor.stop()
     
-def test():
-    Sonar.track1()
-    time.sleep(1)
-    Sonar.track2()
-    print("Looked")
+def track1(arg=None):
+    Sonar.look_left()
+
+def track3(arg=None):
+    Sonar.look_right()
+
+def track2(arg=None):
+    Sonar.look_forward()

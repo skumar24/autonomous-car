@@ -54,7 +54,9 @@ def switcher(choice_args):
         "?" : Motor.get_state,
         "start" : Robot.start,
         "stop" : Robot.stop,
-        "t" : test
+        "1" : Robot.track1,
+        "2": Robot.track2,
+        "3": Robot.track3
     }
     func = sw.get(choice, invalid_choice)
     res = func(arg)
