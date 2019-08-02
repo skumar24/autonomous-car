@@ -146,7 +146,7 @@ def get_path_priority(curr_movement):
     look_forward()
     d = get_distance()
     print("Distance in front: " + str(d))
-    if d < 15 and (current_priority == "forward" or current_priority is None):
+    if d < 20 and (current_priority == "forward" or current_priority is None):
         path_priority = "reverse"
 
     if path_priority is None and current_priority is None: # Move forward if it begins and there is space
