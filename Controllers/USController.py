@@ -142,10 +142,9 @@ def get_path_priority(curr_movement):
     check_all = True
     path_data = []
     is_turning = current_priority == "turnleft" or current_priority == "turnright"
+    look_forward()
+    d = get_distance()
     if curr_movement >= 0:
-        look_forward()
-        d = get_distance()
-
         if current_priority == "forward":
             # Just look forward
             if d < 25:
@@ -162,14 +161,13 @@ def get_path_priority(curr_movement):
 
         if check_all:
             look_right()
-            for i in range(0, 180, 10):
+            for i in range(0, 181, 1):
                 look(i)
                 path_data.append((i, get_distance()));
-            look_forward()
+            # look_forward()
+            print(path_data)
             path_priority = get_dir_by_pathdata(path_data)
     else:
-        look_forward()
-        d = get_distance()
         if is_turning:
             check_all = False
             if d < 25:
@@ -178,10 +176,11 @@ def get_path_priority(curr_movement):
                 path_priority = "forward"
         if check_all:
             look_right()
-            for i in range(0, 181, 10):
+            for i in range(0, 181, 1):
                 look(i)
                 path_data.append((i, get_distance()));
-            look_forward()
+            # look_forward()
+            print(path_data)
             path_priority = get_dir_by_pathdata(path_data, True)
     current_priority = path_priority
     return path_priority

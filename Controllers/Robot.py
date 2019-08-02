@@ -39,7 +39,7 @@ def stop(arg=None):
     Motor.stop()
     
 def track1(arg=None):
-    Sonar.look_left()
+    Sonar.get_path_priority(0)
 
 def track3(arg=None):
     Sonar.look_right()
