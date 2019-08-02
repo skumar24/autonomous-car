@@ -50,7 +50,7 @@ def track3(arg=None):
     Sonar.look_right()
 
 def track2(arg=None):
-    Sonar.look_forward()
+    Sonar.get_distance_infront()
 
 
 def track4(arg=None):

@@ -76,6 +76,7 @@ def get_distance():
     else:
         return distance
 
+
 def get_distance_infront(): # special function to find out distance in front after looking on front sides as well
     look_forward()
     dists = []
@@ -159,16 +160,22 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
             if min_dist <= 20:
                 return "turnleft_quick"
             else:
-                return "turnleft_quick"
+                return "turnleft"
         else:
             return "forward"
     else: # Only in case of reverse, look for left and right to find space to turn
         if max_dist <= 15:
             return "reverse"
         elif max_dir[0] <= 80:
-            return "turnleft"
+            if min_dist <= 20:
+                return "turnleft_quick"
+            else:
+                return "turnleft"
         elif max_dir[0] >=100:
-            return "turnright"
+            if min_dist <=20:
+                return "turnright_quick"
+            else:
+                return "turnright"
 
 
 def get_path_priority(curr_movement):
@@ -176,7 +183,7 @@ def get_path_priority(curr_movement):
     path_priority = None
     check_all = True
     path_data = []
-    is_turning = current_priority == "turnleft" or current_priority == "turnright"
+    is_turning = current_priority == "turnleft" or current_priority == "turnright" or current_priority == "turnleft_quick" or current_priority == "turnright_quick"
 
     d = get_distance_infront()
     print("Distance in front: " + str(d))
