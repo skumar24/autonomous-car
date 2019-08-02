@@ -119,18 +119,18 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
     if not onlyturn:
         if max_dist <= 15:
             return "reverse"
-        elif max_dir <= 80:
+        elif max_dir[0] <= 80:
             return "turnright"
-        elif max_dir >= 100:
+        elif max_dir[0] >= 140:
             return "turnleft"
         else:
             return "forward"
     else: # Only in case of reverse, look for left and right to find space to turn
         if max_dist <= 15:
             return "reverse"
-        elif max_dir <= 80:
+        elif max_dir[0] <= 80:
             return "turnleft"
-        elif max_dir >=100:
+        elif max_dir[0] >=100:
             return "turnright"
 
 

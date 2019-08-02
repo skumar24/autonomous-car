@@ -52,5 +52,5 @@ def track4(arg=None):
     print(Sonar.get_distance())
 
 def track5(arg=None):
-    Sonar.get_path_priority(0)
+    print(Sonar.get_path_priority(0))
 
