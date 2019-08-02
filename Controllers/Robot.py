@@ -39,10 +39,18 @@ def stop(arg=None):
     Motor.stop()
     
 def track1(arg=None):
-    Sonar.get_path_priority(0)
+    Sonar.look_left()
 
 def track3(arg=None):
     Sonar.look_right()
 
 def track2(arg=None):
     Sonar.look_forward()
+
+
+def track4(arg=None):
+    print(Sonar.get_distance())
+
+def track5(arg=None):
+    Sonar.get_path_priority(0)
+
