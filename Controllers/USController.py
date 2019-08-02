@@ -184,6 +184,6 @@ def get_path_priority(curr_movement):
                 path_data.append((i, get_distance()));
             # look_forward()
             path_priority = get_dir_by_pathdata(path_data, True)
-    print("Part priority: " + path_priority + " (Prev: " + current_priority + ")")
+    print("Part priority: " + str(path_priority) + " (Prev: " + str(current_priority) + ")")
     current_priority = path_priority
     return path_priority
