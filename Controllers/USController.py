@@ -76,6 +76,7 @@ def get_distance():
 
 def look(angle):
     servoWrite(angle)
+    time.sleep(0.001)
     pass
 
 
@@ -85,7 +86,6 @@ def look_left():
         return
     for i in range(servo_angle, 181, 1):
         look(i)
-        time.sleep(0.001)
     servo_angle = 180
 
 
@@ -95,7 +95,6 @@ def look_right():
         return
     for i in range(servo_angle, -1, -1):
         look(i)
-        time.sleep(0.001)
     servo_angle = 0
 
 
@@ -106,11 +105,9 @@ def look_forward():
     if servo_angle == 180:
         for i in range(180, 79, -1):
             look(i)
-            time.sleep(0.001)
     else:
         for i in range(0, 81, 1):
             look(i)
-            time.sleep(0.001)
     servo_angle = 80
 
 
