@@ -217,7 +217,7 @@ def get_path_priority(curr_movement):
             if d < 40:
                 path_priority = current_priority
             else:
-                time.sleep(2)
+                #time.sleep(2)
                 path_priority = "forward"
 
         if get_from_pd:
@@ -229,7 +229,7 @@ def get_path_priority(curr_movement):
             if d < 40:
                 path_priority = current_priority
             else:
-                time.sleep(2)
+                #time.sleep(2)
                 path_priority = "forward"
         if get_from_pd:
             # look_forward()
