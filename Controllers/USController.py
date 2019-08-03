@@ -117,17 +117,19 @@ def look_forward():
 
 def get_path_data():
     path_data = []
+    global servo_angle
     if servo_angle == 0:
         for i in range(0, 181, 1):
             look(i)
             # time.sleep(0.01)
             path_data.append((i, get_distance()))
+            servo_angle = 180
     elif servo_angle == 180:
         for i in range(180, 0, -1):
             look(i)
             # time.sleep(0.01)
             path_data.append((i, get_distance()))
-
+            servo_angle = 0
     return path_data
 
 
