@@ -57,5 +57,5 @@ def track4(arg=None):
     print(Sonar.get_distance())
 
 def track5(arg=None):
-    Sonar.printVars()
+    Sonar.print_vars()
 
