@@ -90,6 +90,8 @@ def get_direction():
     if DIF < 35:
         DIF = get_distance()
     print("DEBUG: DIF:", str(DIF))
+    if(DIF < 15):
+        dir = "reverse"
     if DIF < 35 or current_dir == "reverse":
         if current_dir == "stop" or current_dir == "reverse":
             look(0)
