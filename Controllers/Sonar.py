@@ -5,14 +5,14 @@ current_priority = None
 MAX_DISTANCE = 220          #define the maximum measured distance
 timeOut = MAX_DISTANCE*60   #calculate timeout according to the maximum measured distance
 OFFSE_DUTY = 0.5        #define pulse offset of servo
-SERVO_MIN_DUTY = 2.5+OFFSE_DUTY     #define pulse duty cycle for minimum angle of servo
-SERVO_MAX_DUTY = 12.5+OFFSE_DUTY    #define pulse duty cycle for maximum angle of servo
+SERVO_MIN_DUTY = 2 +OFFSE_DUTY     #define pulse duty cycle for minimum angle of servo
+SERVO_MAX_DUTY = 11.5+OFFSE_DUTY    #define pulse duty cycle for maximum angle of servo
 
 trigPin = None
 echoPin = None
 servoPin = None
-
 servo_angle = 0
+
 
 def destroy():
     global trigPin
@@ -78,46 +78,7 @@ def get_distance():
 
 def look(angle):
     servoWrite(angle)
-    time.sleep(0.001)
-    pass
-
-def look_at_angle(angle):
-    servoWrite(angle)
     time.sleep(0.5)
-
-def look_left():
-    global servo_angle
-    # if servo_angle == 180:
-    #     print("Servo 180, already on left")
-    #     return
-    for i in range(0, 181, 1):
-        look(i)
-    time.sleep(0.05)
-    servo_angle = 180
-
-
-
-def look_right():
-    global servo_angle
-    # if servo_angle == 0:
-    #     print("Servo 0, already on right")
-    #     return
-    for i in range(180, -1, -1):
-        look(i)
-    time.sleep(0.05)
-    servo_angle = 0
-
-
-def look_forward():
-    global servo_angle
-    if servo_angle == 180:
-        for i in range(180, 79, -1):
-            look(i)
-    else:
-        for i in range(0, 81, 1):
-            look(i)
-    servo_angle = 80
-
 
 
 def get_path_data():
@@ -269,11 +230,19 @@ def get_path_priority(curr_movement):
     return path_priority
 
 
-def get_direction():
-    look_forward()
+def get_direction(prev):
+    look(90) # look forward
     DIF = get_distance()
     print("DEBUG: DIF:", str(DIF))
-
+    if DIF < 35:
+        look(0)
+        DIR= get_distance()
+        look(180)
+        DIL = get_distance()
+        if DIR > DIL:
+            return "turnright"
+        else
+            return "turnleft"
 
 
 def print_vars():
