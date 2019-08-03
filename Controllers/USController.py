@@ -84,9 +84,9 @@ def look(angle):
 
 def look_left():
     global servo_angle
-    if servo_angle == 180:
-        print("Servo 180, already on left")
-        return
+    # if servo_angle == 180:
+    #     print("Servo 180, already on left")
+    #     return
     for i in range(0, 181, 1):
         look(i)
     servo_angle = 180
@@ -94,9 +94,9 @@ def look_left():
 
 def look_right():
     global servo_angle
-    if servo_angle == 0:
-        print("Servo 0, already on right")
-        return
+    # if servo_angle == 0:
+    #     print("Servo 0, already on right")
+    #     return
     for i in range(180, -1, -1):
         look(i)
     servo_angle = 0
