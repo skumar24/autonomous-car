@@ -83,8 +83,7 @@ def look(angle):
 
 def look_at_angle(angle):
     servoWrite(angle)
-    time.sleep(200)
-    pass
+    time.sleep(0.5)
 
 def look_left():
     global servo_angle
