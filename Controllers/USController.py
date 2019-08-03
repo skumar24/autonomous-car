@@ -122,7 +122,7 @@ def get_path_data():
             look(i)
             # time.sleep(0.01)
             path_data.append((i, get_distance()))
-    elif servo_angle == 180
+    elif servo_angle == 180:
         for i in range(180, 0, -1):
             look(i)
             # time.sleep(0.01)
