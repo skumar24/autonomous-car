@@ -138,11 +138,10 @@ def get_path_data():
     return path_data
 
 
-def get_distance_infront(): # special function to find out distance in front after looking on front sides as well
-    pathdata = get_path_data()
-    pathdata = [d for d in pathdata if 50 < d[0] < 130]
+def get_distance_infront(pathdata): # special function to find out distance in front after looking on front sides as well
+    pd = [d for d in pathdata if 50 < d[0] < 130]
 
-    min_dir = min(pathdata, key=lambda x: x[1])
+    min_dir = min(pd, key=lambda x: x[1])
     min_dist = min_dir[1]
     return min_dist
 
@@ -192,12 +191,12 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
 def get_path_priority(curr_movement):
     global current_priority
     path_priority = None
-    check_all = True
+    get_from_pd = True
     is_turning = current_priority == "turnleft" or current_priority == "turnright" or current_priority == "turnleft_quick" or current_priority == "turnright_quick"
-
-    d = get_distance_infront()
+    path_data = get_path_data()
+    d = get_distance_infront(path_data)
     print("Distance in front: " + str(d))
-    if d < 10:
+    if d < 12:
         path_priority = "reverse"
     if d < 20 and (current_priority == "forward" or current_priority is None):
         path_priority = "reverse"
@@ -205,36 +204,34 @@ def get_path_priority(curr_movement):
     if path_priority is None and current_priority is None: # Move forward if it begins and there is space
         path_priority = "forward"
 
-    if path_priority is None and curr_movement >= 0:
+    if path_priority is None and curr_movement >= 0: # If movement is forward
         if current_priority == "forward":
             # Just look forward
             if d < 40: # If distance in fwd is < 40, start looking for options
-                check_all = True
+                get_from_pd = True
             else:
                 path_priority = current_priority
-                check_all = False
+                get_from_pd = False
         elif is_turning:
-            check_all = False
+            get_from_pd = False
             if d < 40:
                 path_priority = current_priority
             else:
                 time.sleep(2)
                 path_priority = "forward"
 
-        if check_all:
-            path_data = get_path_data()
+        if get_from_pd:
             # look_forward()
             path_priority = get_dir_by_pathdata(path_data)
-    elif path_priority is None:
+    elif path_priority is None: # If movement is reverse
         if is_turning:
-            check_all = False
-            if d < 30:
+            get_from_pd = False
+            if d < 40:
                 path_priority = current_priority
             else:
                 time.sleep(2)
                 path_priority = "forward"
-        if check_all:
-            path_data = get_path_data()
+        if get_from_pd:
             # look_forward()
             path_priority = get_dir_by_pathdata(path_data, True)
     print("Path priority: " + str(path_priority) + " (Prev: " + str(current_priority) + ")")
