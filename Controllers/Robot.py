@@ -35,6 +35,7 @@ def start(arg=None):
             time.sleep(2)
         elif dir == "stop":
             Motor.stop()
+            print("Motor stopped")
 
 
 def stop(arg=None):
