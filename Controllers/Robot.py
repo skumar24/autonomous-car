@@ -51,7 +51,8 @@ def track3(arg=None):
 
 def track2(arg=None):
     path_data = Sonar.get_path_data()
-    Sonar.get_distance_infront(path_data)
+    print(path_data)
+    print(Sonar.get_distance_infront(path_data))
 
 
 def track4(arg=None):
