@@ -139,7 +139,7 @@ def get_path_data():
 
 
 def get_distance_infront(pathdata): # special function to find out distance in front after looking on front sides as well
-    pd = [d for d in pathdata if 50 < d[0] < 130]
+    pd = [d for d in pathdata if 60 < d[0] < 100]
 
     min_dir = min(pd, key=lambda x: x[1])
     min_dist = min_dir[1]
