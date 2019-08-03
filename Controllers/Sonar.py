@@ -110,7 +110,7 @@ def get_direction():
             dir = "stop"
     else:
         dir = "forward"
-
+    look(90)
     current_dir = dir
     return current_dir
 
