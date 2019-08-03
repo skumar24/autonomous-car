@@ -89,6 +89,7 @@ def look_left():
     #     return
     for i in range(0, 181, 1):
         look(i)
+    time.sleep(0.05)
     servo_angle = 180
 
 
@@ -99,6 +100,7 @@ def look_right():
     #     return
     for i in range(180, -1, -1):
         look(i)
+    time.sleep(0.05)
     servo_angle = 0
 
 
