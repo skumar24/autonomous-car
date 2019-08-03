@@ -155,7 +155,7 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
     min_dir = min(pathdata, key=lambda x: x[1])
     min_dist = min_dir[1]
     max_dist = max_dir[1]
-    print("DEBUG: Getting direction by path data. Turning", (not onlyturn), "Min: ", min_dist, " Max:", max_dist, " maxdir: ", max_dir[0])
+    print("DEBUG: Getting direction by path data. Turning", str(not onlyturn), "Min: ", str(min_dist), " Max:", str(max_dist), " maxdir: ", str(max_dir[0]))
     if not onlyturn:
         if max_dist <= 15:
             print("DEBUG: Get by pathdata. Reverse max_dist < 15")
@@ -207,13 +207,13 @@ def get_path_priority(curr_movement):
     d = get_distance_infront(path_data)
     if d < 12 and not is_turning:
         path_priority = "reverse"
-        print("DEBUG: Reversing because DIF:", d, ", P:" + current_priority, "C:", path_priority)
+        print("DEBUG: Reversing because DIF:", d, ", P:" + str(current_priority), "C:", str(path_priority))
     # if d < 12 and (current_priority == "forward" or current_priority is None):
     #     path_priority = "reverse"
 
     if path_priority is None and current_priority is None: # Move forward if it begins and there is space
         path_priority = "forward"
-        print("DEBUG: Forwarding, beginning because DIF:", d, ", P:" + current_priority, "C:", path_priority)
+        print("DEBUG: Forwarding, beginning because DIF:", d, ", P:" + str(current_priority), "C:", str(path_priority))
 
     if path_priority is None and curr_movement >= 0: # If movement is forward
         if current_priority == "forward":
@@ -223,18 +223,18 @@ def get_path_priority(curr_movement):
                 get_from_pd = True
             else:
                 path_priority = current_priority
-                print("DEBUG: Retaining old Priority because DIF>30  DIF:", d, ", P:" + current_priority, "C:", path_priority)
+                print("DEBUG: Retaining old Priority because DIF>30  DIF:", d, ", P:" + str(current_priority), "C:", str(path_priority))
                 get_from_pd = False
         elif is_turning:
             get_from_pd = False
 
             if d < 30:
                 path_priority = current_priority
-                print("DEBUG: Retaining old Priority because Turning and d < 30 DIF:", d, ", P:" + current_priority, "C:",
-                      path_priority)
+                print("DEBUG: Retaining old Priority because Turning and d < 30 DIF:", d, ", P:" + str(current_priority), "C:",
+                      str(path_priority))
             else:
-                print("DEBUG: Turn changed to forward because d >= 30:", d, ", P:" + current_priority,
-                      "C:", path_priority)
+                print("DEBUG: Turn changed to forward because d >= 30:", d, ", P:" + str(current_priority),
+                      "C:", str(path_priority))
                 #time.sleep(2)
                 path_priority = "forward"
 
@@ -245,13 +245,13 @@ def get_path_priority(curr_movement):
         if is_turning:
             get_from_pd = False
             if d < 30:
-                print("DEBUG: Retaining old Priority because reverse Turning and d < 30  DIF:", d, ", P:" + current_priority,
-                      "C:", path_priority)
+                print("DEBUG: Retaining old Priority because reverse Turning and d < 30  DIF:", d, ", P:" + str(current_priority),
+                      "C:", str(path_priority))
                 path_priority = current_priority
             else:
                 print("DEBUG: reverse changed to forward because d > 30 DIF:", d,
-                      ", P:" + current_priority,
-                      "C:", path_priority)
+                      ", P:" + str(current_priority),
+                      "C:", str(path_priority))
                 #time.sleep(2)
                 path_priority = "forward"
         if get_from_pd:
@@ -260,7 +260,7 @@ def get_path_priority(curr_movement):
 
     if path_priority is None:
         path_priority = "forward"
-        print("DEBUG____WARNING: Set to forward because nothing found", d, ", P:" + current_priority, "C:", path_priority)
+        print("DEBUG____WARNING: Set to forward because nothing found", d, ", P:" + str(current_priority), "C:", str(path_priority))
 
     print("Path priority: " + str(path_priority) + " (Prev: " + str(current_priority) + ")")
     current_priority = path_priority
