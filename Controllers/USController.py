@@ -77,25 +77,9 @@ def get_distance():
         return distance
 
 
-def get_distance_infront(): # special function to find out distance in front after looking on front sides as well
-    look_forward()
-    dists = []
-    time.sleep(0.1)
-    for i in range(50, 111, 1):
-        look(i)
-        if i == 50 or i == 110 or i == 80:
-            dists.append(get_distance())
-    time.sleep(0.3)
-    for i in range(110,49, -1):
-        look(i)
-        if i == 50 or i == 110 or i == 80:
-            dists.append(get_distance())
-    return min(dists)
-
-
 def look(angle):
     servoWrite(angle)
-    time.sleep(0.001)
+    time.sleep(0.0)
     pass
 
 
@@ -130,11 +114,32 @@ def look_forward():
     servo_angle = 80
 
 
+
+def get_path_data():
+    path_data = []
+    look_right()
+    for i in range(0, 181, 1):
+        look(i)
+        # time.sleep(0.01)
+        path_data.append((i, get_distance()))
+    return path_data
+
+
+def get_distance_infront(): # special function to find out distance in front after looking on front sides as well
+    pathdata = get_path_data()
+    pathdata = [d for d in pathdata if 50 < p[0] < 130]
+
+    min_dir = min(pathdata, key=lambda x: x[1])
+    min_dist = min_dir[1]
+    return min_dist
+
+
+
 def get_dir_by_pathdata(pathdata, onlyturn = False):
     if onlyturn:
-        pathdata = [p for p in pathdata if 0 <= p[0] <= 50 or 130 <= p[0] <= 180]
+        pathdata = [d for d in pathdata if 0 <= d[0] <= 50 or 130 <= d[0] <= 180]
     max_dir = max(pathdata, key=lambda x: x[1])
-    min_dir = max(pathdata, key=lambda x: x[1])
+    min_dir = min(pathdata, key=lambda x: x[1])
     min_dist = min_dir[1]
     max_dist = max_dir[1]
     if not onlyturn:
@@ -167,11 +172,14 @@ def get_dir_by_pathdata(pathdata, onlyturn = False):
                 return "turnright"
 
 
+
+
+
+
 def get_path_priority(curr_movement):
     global current_priority
     path_priority = None
     check_all = True
-    path_data = []
     is_turning = current_priority == "turnleft" or current_priority == "turnright" or current_priority == "turnleft_quick" or current_priority == "turnright_quick"
 
     d = get_distance_infront()
@@ -197,15 +205,11 @@ def get_path_priority(curr_movement):
             if d < 40:
                 path_priority = current_priority
             else:
-                time.sleep(3)
+                time.sleep(2)
                 path_priority = "forward"
 
         if check_all:
-            look_right()
-            for i in range(0, 181, 1):
-                look(i)
-                # time.sleep(0.01)
-                path_data.append((i, get_distance()));
+            path_data = get_path_data()
             # look_forward()
             path_priority = get_dir_by_pathdata(path_data)
     elif path_priority is None:
@@ -214,14 +218,10 @@ def get_path_priority(curr_movement):
             if d < 30:
                 path_priority = current_priority
             else:
-                time.sleep(3)
+                time.sleep(2)
                 path_priority = "forward"
         if check_all:
-            look_right()
-            for i in range(0, 181, 1):
-                look(i)
-                # time.sleep(0.01)
-                path_data.append((i, get_distance()));
+            path_data = get_path_data()
             # look_forward()
             path_priority = get_dir_by_pathdata(path_data, True)
     print("Path priority: " + str(path_priority) + " (Prev: " + str(current_priority) + ")")
