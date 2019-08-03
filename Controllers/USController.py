@@ -78,7 +78,7 @@ def get_distance():
 
 def look(angle):
     servoWrite(angle)
-    time.sleep(0.0)
+    time.sleep(0.001)
     pass
 
 
