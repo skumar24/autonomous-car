@@ -27,15 +27,12 @@ def start(arg=None):
         if dir == "forward" and Motor.get_state() != "Forward":
             Motor.forward()
         elif dir == "turnleft" and Motor.get_state() != "Turning Left":
-            Motor.turn_left(2)
-        elif dir == "turnleft_quick" and Motor.get_state() != "Turning Left":
             Motor.turn_left(4)
         elif dir == "turnright" and Motor.get_state() != "Turning Right":
-            Motor.turn_right(2)
-        elif dir == "turnright_quick" and Motor.get_state() != "Turning Right":
             Motor.turn_right(4)
         elif dir == "reverse" and Motor.get_state() != "Reverse":
             Motor.reverse()
+            time.sleep(2)
 
 
 def stop(arg=None):
