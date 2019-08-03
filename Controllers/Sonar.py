@@ -96,9 +96,6 @@ def look_left():
     time.sleep(0.05)
     servo_angle = 180
 
-current_angle = None
-def look_at_angle():
-    pass;
 
 
 def look_right():

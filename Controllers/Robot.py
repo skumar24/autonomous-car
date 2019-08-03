@@ -44,7 +44,7 @@ def stop(arg=None):
     Motor.stop()
     
 def track1(arg=None):
-    Sonar.look_at_angle(0)
+    Sonar.look_at_angle(int(arg))
 
 def track3(arg=None):
     Sonar.look_at_angle(180)
