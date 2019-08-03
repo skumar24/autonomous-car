@@ -50,7 +50,8 @@ def track3(arg=None):
     Sonar.look_right()
 
 def track2(arg=None):
-    Sonar.get_distance_infront()
+    path_data = Sonar.get_path_data()
+    Sonar.get_distance_infront(path_data)
 
 
 def track4(arg=None):
