@@ -1,9 +1,9 @@
 {
     "motor" : {
-        "m1_gpio1" : 16,
-        "m1_gpio2" : 18,
-        "m2_gpio1" : 11,
-        "m2_gpio2" : 13
+        "m2_gpio1" : 16,
+        "m2_gpio2" : 18,
+        "m1_gpio1" : 11,
+        "m1_gpio2" : 13
     },
     "sonar" : {
         "us_trig" : 22,
