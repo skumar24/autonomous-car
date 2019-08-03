@@ -81,6 +81,10 @@ def look(angle):
     time.sleep(0.001)
     pass
 
+def look_at_angle(angle):
+    servoWrite(angle)
+    time.sleep(200)
+    pass
 
 def look_left():
     global servo_angle
@@ -272,8 +276,8 @@ def get_path_priority(curr_movement):
 def get_direction():
     look_forward()
     DIF = get_distance()
-    print("DEBUG: DIF:" , str(DIF))
-    if DIF < 30: # Obstacle in front
+    print("DEBUG: DIF:", str(DIF))
+
 
 
 def print_vars():

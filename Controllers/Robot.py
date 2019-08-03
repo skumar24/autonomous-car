@@ -1,5 +1,5 @@
 from Controllers import MotorController as Motor
-from Controllers import USController as Sonar
+from Controllers import Sonar as Sonar
 import time
 
 GPIO = None
@@ -22,7 +22,7 @@ def start(arg=None):
     is_running = True
     while is_running:
         # Decide
-        dir = Sonar.get_path_priority(Motor.get_movement())
+        dir = Sonar.get_direction()
         print("Moving in direction " + dir)
         if dir == "forward" and Motor.get_state() != "Forward":
             Motor.forward()
@@ -44,20 +44,18 @@ def stop(arg=None):
     Motor.stop()
     
 def track1(arg=None):
-    Sonar.look_left()
+    Sonar.look_at_angle(0)
 
 def track3(arg=None):
-    Sonar.look_right()
+    Sonar.look_at_angle(180)
 
 def track2(arg=None):
-    path_data = Sonar.get_path_data()
-    print(path_data)
-    print(Sonar.get_distance_infront(path_data))
+    Sonar.look_at_angle(90)
 
 
 def track4(arg=None):
-    print(Sonar.get_distance())
+    Sonar.look_at_angle(45)
 
 def track5(arg=None):
-    Sonar.print_vars()
+    Sonar.look_at_angle(135)
 
