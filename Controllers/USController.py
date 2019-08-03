@@ -148,44 +148,54 @@ def get_distance_infront(pathdata): # special function to find out distance in f
 
 
 def get_dir_by_pathdata(pathdata, onlyturn = False):
+
     if onlyturn:
         pathdata = [d for d in pathdata if 0 <= d[0] <= 50 or 130 <= d[0] <= 180]
     max_dir = max(pathdata, key=lambda x: x[1])
     min_dir = min(pathdata, key=lambda x: x[1])
     min_dist = min_dir[1]
     max_dist = max_dir[1]
+    print("DEBUG: Getting direction by path data. Turning", (not onlyturn), "Min: ", min_dist, " Max:", max_dist, " maxdir: ", max_dir[0])
     if not onlyturn:
         if max_dist <= 15:
+            print("DEBUG: Get by pathdata. Reverse max_dist < 15")
             return "reverse"
         elif max_dir[0] <= 80:
             if min_dist <=20:
+                print("DEBUG: Get by pathdata. Turnright quick. Maxright maxdir <= 80 and mindist <=20")
                 return "turnright_quick"
             else:
+                print("DEBUG: Get by pathdata. Turnright Maxright. maxdir <=80")
                 return "turnright"
         elif max_dir[0] >= 140:
             if min_dist <= 20:
+                print("DEBUG: Get by pathdata. Turnleft quick Maxleft. Maxdir >=140 and mindist <=20")
                 return "turnleft_quick"
             else:
+                print("DEBUG: Get by pathdata. Turnleft quick Maxleft. Maxdir >=140")
                 return "turnleft"
         else:
             return "forward"
     else: # Only in case of reverse, look for left and right to find space to turn
         if max_dist <= 15:
+            print("DEBUG: Already reversing Get by pathdata. Keep reversing maxdist <= 15")
             return "reverse"
         elif max_dir[0] <= 80:
             if min_dist <= 20:
+                print("DEBUG: Already reversing Get by pathdata. Turnright quick. Maxright maxdir <= 80 and mindist <=20")
                 return "turnleft_quick"
             else:
+                print("DEBUG: Already reversing Get by pathdata. Turnright. Maxright maxdir <= 80")
                 return "turnleft"
-        elif max_dir[0] >=100:
+        elif max_dir[0] >=140:
             if min_dist <=20:
+                print(
+                    "DEBUG: Already reversing Get by pathdata. Turnleft quick. Maxleft maxdir >=140 and mindist <=20")
                 return "turnright_quick"
             else:
+                print(
+                    "DEBUG: Already reversing Get by pathdata. left. Maxleft maxdir >=140 and mindist <=20")
                 return "turnright"
-
-
-
-
 
 
 def get_path_priority(curr_movement):
@@ -195,28 +205,36 @@ def get_path_priority(curr_movement):
     is_turning = current_priority == "turnleft" or current_priority == "turnright" or current_priority == "turnleft_quick" or current_priority == "turnright_quick"
     path_data = get_path_data()
     d = get_distance_infront(path_data)
-    print("Distance in front: " + str(d))
-    if d < 12:
+    if d < 12 and not is_turning:
         path_priority = "reverse"
+        print("DEBUG: Reversing because DIF:", d, ", P:" + current_priority, "C:", path_priority)
     # if d < 12 and (current_priority == "forward" or current_priority is None):
     #     path_priority = "reverse"
 
     if path_priority is None and current_priority is None: # Move forward if it begins and there is space
         path_priority = "forward"
+        print("DEBUG: Forwarding, beginning because DIF:", d, ", P:" + current_priority, "C:", path_priority)
 
     if path_priority is None and curr_movement >= 0: # If movement is forward
         if current_priority == "forward":
             # Just look forward
             if d < 30: # If distance in fwd is < 40, start looking for options
+                print("DEBUG: Tracking because DIF< 30  DIF:", d, ", P:" + current_priority, "C:", path_priority)
                 get_from_pd = True
             else:
                 path_priority = current_priority
+                print("DEBUG: Retaining old Priority because DIF>30  DIF:", d, ", P:" + current_priority, "C:", path_priority)
                 get_from_pd = False
         elif is_turning:
             get_from_pd = False
+
             if d < 30:
                 path_priority = current_priority
+                print("DEBUG: Retaining old Priority because Turning and d < 30 DIF:", d, ", P:" + current_priority, "C:",
+                      path_priority)
             else:
+                print("DEBUG: Turn changed to forward because d >= 30:", d, ", P:" + current_priority,
+                      "C:", path_priority)
                 #time.sleep(2)
                 path_priority = "forward"
 
@@ -227,13 +245,23 @@ def get_path_priority(curr_movement):
         if is_turning:
             get_from_pd = False
             if d < 30:
+                print("DEBUG: Retaining old Priority because reverse Turning and d < 30  DIF:", d, ", P:" + current_priority,
+                      "C:", path_priority)
                 path_priority = current_priority
             else:
+                print("DEBUG: reverse changed to forward because d > 30 DIF:", d,
+                      ", P:" + current_priority,
+                      "C:", path_priority)
                 #time.sleep(2)
                 path_priority = "forward"
         if get_from_pd:
             # look_forward()
             path_priority = get_dir_by_pathdata(path_data, True)
+
+    if path_priority is None:
+        path_priority = "forward"
+        print("DEBUG____WARNING: Set to forward because nothing found", d, ", P:" + current_priority, "C:", path_priority)
+
     print("Path priority: " + str(path_priority) + " (Prev: " + str(current_priority) + ")")
     current_priority = path_priority
     return path_priority

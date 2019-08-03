@@ -113,7 +113,7 @@ def _rwheel_act_(dir):
 def forward(arg=None):
     _lwheel_act_(1)
     _rwheel_act_(1)
-    print(get_state())
+    #print(get_state())
     if arg is not None:
         sleep2((int(arg)))
         stop()
@@ -123,7 +123,7 @@ def forward(arg=None):
 def reverse(arg=None):
     _lwheel_act_(-1)
     _rwheel_act_(-1)
-    print(get_state())
+    #print(get_state())
     if arg is not None:
         sleep2((int(arg)))
         stop()
@@ -135,13 +135,13 @@ def turn_left(arg=None):
     # If car is stopped or was moving fwd, then turn in forward direction else reverse
     _rwheel_act_(1 if m >= 0 else -1)
     _lwheel_act_(0)
-    print(get_state())
+    #print(get_state())
     if arg is not None:
         sleep2((int(arg)))
     else:
         sleep2(3)
     set_state(m)
-    print(get_state())
+    #print(get_state())
 
 
 # Turn right with specific time specified, else 3 time units. Then continue last state
@@ -150,41 +150,41 @@ def turn_right(arg=None):
     _rwheel_act_(0)
     # If car is stopped or was moving fwd, then turn in forward direction else reverse
     _lwheel_act_(1 if m >= 0 else -1)
-    print(get_state())
+    #print(get_state())
     if arg is not None:
         sleep2((int(arg)))
     else:
         sleep2(3)
     set_state(m)
-    print(get_state())
+    #print(get_state())
 
 
 # Turn left with specific time specified, else 3 time units. Then Stop
 def reverse_left(arg=None):
     _lwheel_act_(0)
     _rwheel_act_(-1)
-    print(get_state())
+    #print(get_state())
     if arg is not None:
         sleep2((int(arg)))
     else:
         sleep2(3)
     set_state(0)
-    print(get_state())
+    #print(get_state())
 
 # Turn right with specific time specified, else 3 time units. Then Stop
 def reverse_right(arg=None):
     _rwheel_act_(0)
     _lwheel_act_(-1)
-    print(get_state())
+    #print(get_state())
     if arg is not None:
         sleep2((int(arg)))
     else:
         sleep2(3)
     set_state(0)
-    print(get_state())
+    #print(get_state())
 
 
 def stop(arg=None):
     _rwheel_act_(0)
     _lwheel_act_(0)
-    print(get_state())
+    #print(get_state())
