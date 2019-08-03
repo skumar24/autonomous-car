@@ -198,8 +198,8 @@ def get_path_priority(curr_movement):
     print("Distance in front: " + str(d))
     if d < 12:
         path_priority = "reverse"
-    if d < 20 and (current_priority == "forward" or current_priority is None):
-        path_priority = "reverse"
+    # if d < 12 and (current_priority == "forward" or current_priority is None):
+    #     path_priority = "reverse"
 
     if path_priority is None and current_priority is None: # Move forward if it begins and there is space
         path_priority = "forward"
@@ -207,14 +207,14 @@ def get_path_priority(curr_movement):
     if path_priority is None and curr_movement >= 0: # If movement is forward
         if current_priority == "forward":
             # Just look forward
-            if d < 40: # If distance in fwd is < 40, start looking for options
+            if d < 30: # If distance in fwd is < 40, start looking for options
                 get_from_pd = True
             else:
                 path_priority = current_priority
                 get_from_pd = False
         elif is_turning:
             get_from_pd = False
-            if d < 40:
+            if d < 30:
                 path_priority = current_priority
             else:
                 #time.sleep(2)
@@ -226,7 +226,7 @@ def get_path_priority(curr_movement):
     elif path_priority is None: # If movement is reverse
         if is_turning:
             get_from_pd = False
-            if d < 40:
+            if d < 30:
                 path_priority = current_priority
             else:
                 #time.sleep(2)
