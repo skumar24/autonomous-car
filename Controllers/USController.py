@@ -36,7 +36,6 @@ def setup(config):
     if p is not None:
         p.start(0)  # Duty Cycle = 0
 
-
 def servoWrite(angle):      # make the servo rotate to specific angle (0-180 degrees)
     if(angle<0):
         angle = 0
@@ -86,6 +85,7 @@ def look(angle):
 def look_left():
     global servo_angle
     if servo_angle == 180:
+        print("Servo 180, already on left")
         return
     for i in range(0, 181, 1):
         look(i)
@@ -95,23 +95,24 @@ def look_left():
 def look_right():
     global servo_angle
     if servo_angle == 0:
+        print("Servo 0, already on right")
         return
     for i in range(180, -1, -1):
         look(i)
     servo_angle = 0
 
 
-def look_forward():
-    global servo_angle
-    if servo_angle == 80:
-        return
-    if servo_angle == 180:
-        for i in range(180, 111, -1):
-            look(i)
-    else:
-        for i in range(0, 49, 1):
-            look(i)
-    servo_angle = 80
+# def look_forward():
+#     global servo_angle
+#     if servo_angle == 80:
+#         return
+#     if servo_angle == 180:
+#         for i in range(180, 111, -1):
+#             look(i)
+#     else:
+#         for i in range(0, 49, 1):
+#             look(i)
+#     servo_angle = 80
 
 
 
@@ -119,12 +120,14 @@ def get_path_data():
     path_data = []
     global servo_angle
     if servo_angle == 0:
+        print("Getting path data from right to left")
         for i in range(0, 181, 1):
             look(i)
             # time.sleep(0.01)
             path_data.append((i, get_distance()))
             servo_angle = 180
     elif servo_angle == 180:
+        print("Getting path data from left to right")
         for i in range(180, 0, -1):
             look(i)
             # time.sleep(0.01)
@@ -235,3 +238,8 @@ def get_path_priority(curr_movement):
     print("Path priority: " + str(path_priority) + " (Prev: " + str(current_priority) + ")")
     current_priority = path_priority
     return path_priority
+
+
+def print_vars():
+    global servo_angle
+    print(servo_angle)
