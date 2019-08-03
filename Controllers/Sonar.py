@@ -102,7 +102,7 @@ def get_direction():
             DIL = get_distance()
             if DIL < 35:
                 DIL = get_distance()
-            print("DIL:", str(DIL), "DIR:" + DIR)
+            print("DIL:", str(DIL), "DIR:" + str(DIR))
             if DIR > DIL and DIR > 35:
                 dir = "turnright"
             elif DIL > DIR and DIL > 35:
