@@ -33,6 +33,8 @@ def start(arg=None):
         elif dir == "reverse" and Motor.get_state() != "Reverse":
             Motor.reverse()
             time.sleep(2)
+        elif dir == "stop":
+            Motor.stop()
 
 
 def stop(arg=None):
